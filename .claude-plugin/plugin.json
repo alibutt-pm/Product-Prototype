@@ -1,0 +1,20 @@
+{
+  "name": "management-consultant",
+  "version": "1.0.0",
+  "description": "Top-tier MBB-style management consulting toolkit. Provides 22 specialist strategy skills spanning diagnosis, market intelligence, strategic choice, operating model design, risk governance, and executive communication — orchestrated by a single engagement skill that routes problems to the right method.",
+  "author": {
+    "name": "alibutt-pm"
+  },
+  "license": "MIT",
+  "keywords": [
+    "strategy",
+    "consulting",
+    "management",
+    "mckinsey",
+    "bcg",
+    "bain",
+    "business-strategy",
+    "decision-making",
+    "executive-communication"
+  ]
+}
