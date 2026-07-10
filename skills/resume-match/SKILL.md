@@ -17,7 +17,11 @@ Act as a top-1% technical recruiter and hiring manager reviewing this resume aga
 
 1. **Gather inputs.**
    - Job posting URL (required).
-   - Path to the user's standard LaTeX resume (`.tex`). If not given, look for a `.tex` file in the working directory; if none is found, ask for the path or the raw content.
+   - Standard LaTeX resume: fetch it from the user's Google Drive rather than the repo or local disk (the resume is personal content and is intentionally kept out of source control).
+     - Use `mcp__Google_Drive__search_files` with query `title contains 'resume' and mimeType = 'text/x-tex'`.
+     - The file name is date-stamped (e.g. `resume-product-10jul26.tex`) and gets replaced as the user updates their master copy — always pick the result with the most recent `modifiedTime`, not a hardcoded file ID or name.
+     - Download it with `mcp__Google_Drive__download_file_content` (no `exportMimeType` needed since it's already `text/x-tex`) and base64-decode the `content` field to get the LaTeX source.
+     - If no matching file is found, ask the user for the file name/location in Drive, or fall back to a pasted `.tex` / local path for a one-off run.
 
 2. **Fetch and read the job posting** with WebFetch.
    - LinkedIn job pages are often gated behind login or rendered client-side — if the fetch returns a login wall, nav chrome, or truncated content instead of the actual description, tell the user and ask them to paste the job description text directly rather than guessing at it.
@@ -49,7 +53,7 @@ Act as a top-1% technical recruiter and hiring manager reviewing this resume aga
 
 7. **Draft a cover letter only if warranted** — the posting explicitly asks for one, or it's a norm for this role/industry/seniority (e.g., many non-technical, agency, or senior roles expect one even if unstated). Keep it under 300–350 words, plain text, specific to the company and role (not a generic template), and grounded only in real resume content.
 
-8. **Do not overwrite the user's resume file directly.** Present the recommended changes for review; apply them only if the user confirms.
+8. **Do not overwrite the user's Drive resume file directly.** Present the recommended changes for review. If the user wants a tailored copy saved, create a *new* file in Drive (e.g. `resume-product-<company>-<role>.tex`) rather than modifying the master — never commit resume content to this repo.
 
 ## Output Format
 
